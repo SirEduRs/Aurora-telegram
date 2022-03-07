@@ -1,3 +1,4 @@
+from asyncio import sleep
 from os import environ, remove
 from pathlib import Path
 from shutil import rmtree
@@ -7,7 +8,6 @@ from zipfile import ZIP_DEFLATED, ZipFile
 from aiogram import Bot
 from aiogram.types import InputFile
 from aiogram.utils.markdown import bold
-from asyncio import sleep
 from paramiko import AutoAddPolicy, SSHClient
 
 

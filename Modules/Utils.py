@@ -1,4 +1,5 @@
 from datetime import datetime
+from os import environ
 
 from aiogram.dispatcher.filters import CommandStart
 from aiogram.types import Message
@@ -27,10 +28,11 @@ async def _uptime(m: Message) -> None:
     return await m.answer(f"Meu uptime: {precisedelta(uptime, format='%0.0f')}")
 
 
-@dp.message_handler(commands=["teste"])
-async def _teste(m: Message) -> None:
-    a = await create_backup(datetime.now(), m.bot)
-    return await m.answer(a)
+@dp.message_handler(commands=["backup"])
+async def _backup(m: Message) -> None:
+    if m.from_user.id == environ["OWNER_ID"]:
+        txt = await create_backup(datetime.now(), m.bot)
+        return await m.answer(txt)
 
 
 @dp.message_handler(commands=["help"])
@@ -39,7 +41,6 @@ async def _help(m: Message) -> None:
         f"Olá {m.from_user.first_name}!\n"
         f"Esses são alguns dos comandos que eu possuo:\n"
         f"/start - Comando de inicio.\n"
-        f"/backup - Inicia um backup.\n"
         f"/help - Mostra os comandos.\n"
         f"/uptime - Mostra o uptime do bot.\n"
     )
