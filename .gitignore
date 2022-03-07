@@ -131,3 +131,6 @@ dmypy.json
 
 #Poetry Lock
 poetry.lock
+
+#Archives
+pkey
