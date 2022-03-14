@@ -88,17 +88,17 @@ async def create_backup(datetime, bot: Bot) -> str:
     datetime: Data e hora.
     """
     archives = {
-        'mtasa/mods/deathmatch/internal.db': 'internal.db',
-        'mtasa/mods/deathmatch/registry.db': 'registry.db',
-        'mtasa/mods/deathmatch/resources/[acc]/LVL/levels.db':
+        'server/mods/deathmatch/internal.db': 'internal.db',
+        'server/mods/deathmatch/registry.db': 'registry.db',
+        'server/mods/deathmatch/resources/[acc]/LVL/levels.db':
             ['LVL', 'levels.db'],
-        'mtasa/mods/deathmatch/resources/[paineis-cliente]/IZ-Vehicle/database.db':
+        'server/mods/deathmatch/resources/[paineis-cliente]/IZ-Vehicle/database.db':
             ['IZ-Vehicle', 'database.db'],
-        'mtasa/mods/deathmatch/resources/[acc]/IZ-gpsystem/dbData_byRex.db':
+        'server/mods/deathmatch/resources/[acc]/IZ-gpsystem/dbData_byRex.db':
             ['IZ-gpsystem', 'dbData_byRex.db'],
-        'mtasa/mods/deathmatch/mtaserver.conf': 'mtaserver.conf',
-        'mtasa/mods/deathmatch/acl.xml': 'acl.xml',
-        'mtasa/mods/deathmatch/banlist.xml': 'banlist.xml'
+        'server/mods/deathmatch/mtaserver.conf': 'mtaserver.conf',
+        'server/mods/deathmatch/acl.xml': 'acl.xml',
+        'server/mods/deathmatch/banlist.xml': 'banlist.xml'
     }
 
     data = datetime.strftime('%d-%m-%Y')
@@ -125,7 +125,7 @@ async def create_backup(datetime, bot: Bot) -> str:
     await bot.send_message(
         environ['CHATID'], f'Backup do dia {bold(data)} criado com sucesso !'
     )
-    sleep(0.6)
+    await sleep(0.6)
     await bot.send_message(environ['CHATID'], f'=+=+=+=+=+=+=+=+=+=+=+=+=+=+=')
     remove(name)
     return f'Backup criado com sucesso !!\n Data: {data}'

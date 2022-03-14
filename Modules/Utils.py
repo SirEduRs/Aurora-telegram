@@ -28,11 +28,12 @@ async def _uptime(m: Message) -> None:
     return await m.answer(f"Meu uptime: {precisedelta(uptime, format='%0.0f')}")
 
 
-@dp.message_handler(commands=["backup"])
+@dp.message_handler(commands=["backups"])
 async def _backup(m: Message) -> None:
-    if m.from_user.id == environ["OWNER_ID"]:
+    if m.from_user.id == int(environ["OWNER_ID"]):
         txt = await create_backup(datetime.now(), m.bot)
         return await m.answer(txt)
+    return await m.answer("Você não tem permissão para executar esse comando !")
 
 
 @dp.message_handler(commands=["help"])
