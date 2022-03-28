@@ -52,16 +52,14 @@ class SSH:
     def get_files(self, paths: Dict[str, str]) -> bool | Exception:
         sftp = self.client.open_sftp()
         try:
-            for remote_path, local_path in paths.items():
-                if isinstance(local_path, str):
-                    sftp.get(remote_path, f'Archives/{local_path}')
+            for remote_path, name in paths.items():
+                if isinstance(name, str):
+                    self.get_file(f'Archives/{name}', remote_path)
                 else:
-                    Path(f'Archives/{local_path[0]}').mkdir(
+                    Path(f'Archives/{name[0]}').mkdir(
                         parents=True, exist_ok=True
                     )
-                    sftp.get(
-                        remote_path, f'Archives/{local_path[0]}/{local_path[1]}'
-                    )
+                    self.get_file(f'Archives/{name[0]}/{name[1]}', remote_path)
         except Exception as e:
             return e
         else:
@@ -88,17 +86,16 @@ async def create_backup(datetime, bot: Bot) -> str:
     datetime: Data e hora.
     """
     archives = {
-        'server/mods/deathmatch/internal.db': 'internal.db',
-        'server/mods/deathmatch/registry.db': 'registry.db',
-        'server/mods/deathmatch/resources/[acc]/LVL/levels.db':
-            ['LVL', 'levels.db'],
-        'server/mods/deathmatch/resources/[paineis-cliente]/IZ-Vehicle/database.db':
+        'server/data/internal.db': 'internal.db',
+        'server/data/registry.db': 'registry.db',
+        'server/mta-resources/[acc]/LVL/levels.db': ['LVL', 'levels.db'],
+        'server/mta-resources/[paineis-cliente]/IZ-Vehicle/database.db':
             ['IZ-Vehicle', 'database.db'],
-        'server/mods/deathmatch/resources/[acc]/IZ-gpsystem/dbData_byRex.db':
+        'server/mta-resources/[acc]/IZ-gpsystem/dbData_byRex.db':
             ['IZ-gpsystem', 'dbData_byRex.db'],
-        'server/mods/deathmatch/mtaserver.conf': 'mtaserver.conf',
-        'server/mods/deathmatch/acl.xml': 'acl.xml',
-        'server/mods/deathmatch/banlist.xml': 'banlist.xml'
+        'server/data/mtaserver.conf': 'mtaserver.conf',
+        'server/data/acl.xml': 'acl.xml',
+        'server/data/banlist.xml': 'banlist.xml'
     }
 
     data = datetime.strftime('%d-%m-%Y')

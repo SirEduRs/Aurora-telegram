@@ -1,0 +1,16 @@
+version: '3.9'
+
+networks:
+  tgbot: ~
+
+services:
+  bot:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: tgbot
+    restart: unless-stopped
+    networks:
+      - tgbot
+    volumes:
+      - ./:/bottg/
