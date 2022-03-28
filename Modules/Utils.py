@@ -28,7 +28,7 @@ async def _uptime(m: Message) -> None:
     return await m.answer(f"Meu uptime: {precisedelta(uptime, format='%0.0f')}")
 
 
-@dp.message_handler(commands=["backups"])
+@dp.message_handler(commands=["backup"])
 async def _backup(m: Message) -> None:
     if m.from_user.id == int(environ["OWNER_ID"]):
         txt = await create_backup(datetime.now(), m.bot)
